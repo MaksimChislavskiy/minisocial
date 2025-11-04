@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title text-center">Вход в MiniSocial</h3>
+                
+                {% if form.errors %}
+                <div class="alert alert-danger">
+                    Неверное имя пользователя или пароль. Попробуйте снова.
+                </div>
+                {% endif %}
+
+                {% if next %}
+                    {% if user.is_authenticated %}
+                    <div class="alert alert-warning">
+                        У вашей учетной записи нет доступа к этой странице.
+                    </div>
+                    {% else %}
+                    <div class="alert alert-info">
+                        Пожалуйста, войдите, чтобы увидеть эту страницу.
+                    </div>
+                    {% endif %}
+                {% endif %}
+
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Имя пользователя</label>
+                        <input type="text" 
+                               name="{{ form.username.name }}" 
+                               id="{{ form.username.id_for_label }}"
+                               class="form-control"
+                               required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.password.id_for_label }}" class="form-label">Пароль</label>
+                        <input type="password" 
+                               name="{{ form.password.name }}" 
+                               id="{{ form.password.id_for_label }}"
+                               class="form-control"
+                               required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Войти</button>
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+                
+                <div class="text-center mt-3">
+                    <p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

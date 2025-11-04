@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body text-center">
+                <h3>Вы вышли из системы</h3>
+                <p>Спасибо, что были с нами!</p>
+                <div class="mt-3">
+                    <a href="{% url 'login' %}" class="btn btn-primary">Войти снова</a>
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">На главную</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
